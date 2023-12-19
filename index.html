@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Calendar</title>
+    <link rel="stylesheet" href="./style.css"/>
+  </head>
+  <body>
+    <div>
+        <input class="date-pick-input"type="date"></input>
+        <div id="date-pick-box">Select date</div>
+        <div id="calendar-container">
+          <div
+          class="calendar-nav"
+          id="calendarNav"
+          >
+            <button
+                id="prev-month-button"
+                class="nav-button"
+                data-action="prevMonth"
+            >
+            </button>
+            <div class="current-date">
+                <span id="currentMonth"></span> <span id="currentYear"></span>
+            </div>
+            <button
+                id="next-month-button"
+                class="nav-button"
+                data-action="nextMonth"
+            >
+            </button>
+          </div>
+        </div>
+    </div>
+    <script src="dist/bundle.js"></script>
+  </body>
+</html>

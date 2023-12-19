@@ -1,0 +1,72 @@
+body {
+  background-color: #f5f2f2;
+}
+
+div {
+  user-select: none;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  background-color: none;
+  color: none;
+}
+
+.date-pick-input {
+  display: none;
+}
+
+#date-pick-box {
+  background-color: #fff;
+  width: 250px;
+  border: 1px solid #c9c9c9;
+  border-radius: 2px;
+  padding: 8px 10px;
+  color: grey;
+  font-weight: 500;
+}
+
+.visible {
+  display: block !important;
+}
+
+#calendar-container {
+  display: none;
+  color: #fff;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.calendar-nav {
+  display: flex;
+  height: 60px;
+  background-color: #40e0d0;
+  width: 425px;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 5px;
+}
+.current-date {
+  display: flex;
+  flex-direction: column;
+}
+#prev-month-button {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  background-color: #40e0d0;
+  background-image: url(./src/img/previousIcon.png);
+}
+
+#next-month-button {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  background-color: #40e0d0;
+  background-image: url(./src/img/nextIcon.png);
+}
