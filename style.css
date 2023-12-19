@@ -50,11 +50,17 @@ button {
   justify-content: space-around;
   align-items: center;
   border-radius: 5px;
+  font-weight: 600;
 }
 .current-date {
   display: flex;
   flex-direction: column;
+  font-weight: 500;
 }
+
+#currentMonth {
+}
+
 #prev-month-button {
   cursor: pointer;
   width: 24px;
