@@ -7,7 +7,21 @@ export function calendar() {
 
   const currentDate = new Date()
   let currentYear = currentDate.getFullYear()
-  let currentMonth = currentDate.getMonth() + 1 // 0-based index
+  let currentMonth = currentDate.getMonth() + 1
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ]
 
   datePickBox.addEventListener('click', function () {
     calendarContainer.classList.toggle('visible')
@@ -15,7 +29,7 @@ export function calendar() {
 
   function updateUI() {
     currentYearElement.textContent = currentYear
-    currentMonthElement.textContent = currentMonth
+    currentMonthElement.textContent = months[currentMonth - 1]
   }
 
   updateUI()
