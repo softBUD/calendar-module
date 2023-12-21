@@ -28,6 +28,7 @@ export function calendar() {
   })
 
   function updateUI() {
+    console.log(currentMonth)
     currentYearElement.textContent = currentYear
     currentMonthElement.textContent = months[currentMonth - 1]
   }
