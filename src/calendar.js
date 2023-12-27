@@ -23,54 +23,72 @@ export function calendar() {
     'December',
   ]
 
-  const daysOfWeek = ['SUN', 'MOM', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
-
-  function getDates(year, month) {
-    const lastDay = new Date(year, month, 0).getDate()
-    return Array.from({ length: lastDay }, (_, index) => index + 1)
-  }
+  const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 
   function drawCalendar(year, month) {
     const calendarGrid = document.getElementById('calendarGrid')
+    calendarGrid.innerHTML = ''
 
-    // 기존의 day-row가 없다면 새로 생성
-    let dayRow = calendarGrid.querySelector('.day-row')
-    if (!dayRow) {
-      dayRow = document.createElement('div')
-      dayRow.className = 'day-row'
+    const headerRow = document.createElement('div')
+    headerRow.className = 'day-row'
+    daysOfWeek.forEach((day) => {
+      const dayElement = document.createElement('div')
+      dayElement.className = 'day'
+      dayElement.textContent = day
+      headerRow.appendChild(dayElement)
+    })
+    calendarGrid.appendChild(headerRow)
 
-      // 요일 표시
-      daysOfWeek.forEach((day) => {
-        const dayElement = document.createElement('div')
-        dayElement.className = 'day'
-        dayElement.textContent = day
-        dayRow.appendChild(dayElement)
-      })
+    const firstDate = new Date(year, month - 1, 1)
+    const lastDate = new Date(year, month, 0)
+    const firstDay = firstDate.getDay()
+    const lastDay = lastDate.getDate()
 
-      calendarGrid.appendChild(dayRow)
+    let dateCounter = 1
+
+    for (let i = 0; i < 5; i++) {
+      const dateRow = document.createElement('div')
+      dateRow.className = 'date-row'
+
+      for (let j = 0; j < 7; j++) {
+        const dateElement = document.createElement('div')
+        dateElement.className = 'date'
+
+        const dayIndex = i * 7 + j
+        const prevMonthDays = firstDay === 0 ? 6 : firstDay - 1
+
+        if (dateCounter <= lastDay) {
+          if (i === 0 && dayIndex < prevMonthDays) {
+            // Draw previous month's dates in the first week
+            const prevMonthLastDate = new Date(currentYear, currentMonth - 1, 0)
+            const prevMonthDate = new Date(
+              currentYear,
+              currentMonth - 1,
+              prevMonthLastDate.getDate() - (prevMonthDays - j)) //prettier-ignore
+            console.log(prevMonthDays, j)
+            dateElement.textContent = prevMonthDate.getDate()
+            dateElement.dataset.dayOfWeek = daysOfWeek[dayIndex % 7] // Modify this line
+            dateElement.classList.add('prev-month')
+          } else {
+            const current = new Date(currentYear, currentMonth, dateCounter)
+            dateElement.textContent = current.getDate()
+            console.log(current.getDay())
+            dateElement.dataset.dayOfWeek = daysOfWeek[j]
+            dateCounter++
+          }
+        } else {
+          // Draw next month's dates
+          const nextMonthDate = new Date(year, month, dateCounter - lastDay)
+          dateElement.textContent = nextMonthDate.getDate()
+          dateElement.classList.add('next-month')
+          dateCounter++
+        }
+
+        dateRow.appendChild(dateElement)
+      }
+
+      calendarGrid.appendChild(dateRow)
     }
-
-    // 기존의 date가 남아있다면 제거
-    const existingDates = Array.from(
-      calendarGrid.getElementsByClassName('date'),
-    )
-    existingDates.forEach((dateElement) => {
-      dateElement.remove()
-    })
-
-    // 날짜 표시
-    const dates = getDates(year, month)
-    dates.forEach((date) => {
-      const dateElement = document.createElement('div')
-      dateElement.className = 'date'
-      dateElement.textContent = date
-
-      // 요일 계산 및 표시
-      const dayOfWeek = new Date(year, month - 1, date).getDay()
-      dateElement.dataset.dayOfWeek = daysOfWeek[dayOfWeek]
-
-      calendarGrid.appendChild(dateElement)
-    })
   }
 
   datePickBox.addEventListener('click', function () {
@@ -84,7 +102,7 @@ export function calendar() {
 
   updateUI()
 
-  drawCalendar(currentYear, currentDate.getMonth() + 1)
+  drawCalendar(currentYear, currentMonth)
 
   document.addEventListener('click', function (event) {
     if (event.target === datePickBox) {
@@ -135,6 +153,6 @@ export function calendar() {
     }
 
     updateUI()
-    drawCalendar(currentYear, currentDate.getMonth() + 1)
+    drawCalendar(currentYear, currentMonth)
   }
 }
